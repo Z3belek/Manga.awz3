@@ -12,6 +12,7 @@ func Crop(img image.Image, bounds image.Rectangle) (image.Image, error) {
 	type subImager interface {
 		SubImage(r image.Rectangle) image.Image
 	}
+
 	if img, ok := img.(subImager); !ok {
 		return nil, fmt.Errorf(`image does not support cropping or not a valid image`)
 	} else {
@@ -60,6 +61,7 @@ func scanPoint(rect image.Rectangle, dir image.Point) image.Point {
 	}
 	return rect.Min
 }
+
 func scanImage(img image.Image, pt image.Point, scan image.Point) bool {
 	for ; pt.In(img.Bounds()); pt = pt.Add(scan) {
 		if gray, ok := color.GrayModel.Convert(img.At(pt.X, pt.Y)).(color.Gray16); ok {
@@ -71,7 +73,7 @@ func scanImage(img image.Image, pt image.Point, scan image.Point) bool {
 	return false
 }
 
-func splitImage(img image.Image) (image.Image, image.Image, error) {
+func SplitImage(img image.Image) (image.Image, image.Image, error) {
 	type subImager interface {
 		image.Image
 		SubImage(r image.Rectangle) image.Image
