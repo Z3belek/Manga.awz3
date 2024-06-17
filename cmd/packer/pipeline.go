@@ -17,7 +17,7 @@ import (
 )
 
 type DiscoveryInput struct {
-	rootDit string
+	rootDir string
 }
 
 type CommCh struct {
