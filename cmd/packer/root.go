@@ -19,7 +19,7 @@ import (
 )
 
 type KindlePacker struct {
-	RootDit        string
+	RootDir        string
 	DisableCrop    bool
 	LeftToRight    bool
 	DoublePage     string
@@ -56,7 +56,7 @@ func MangaPacker(params KindlePacker) error {
 			DoublePage:  params.DoublePage,
 			CoresCount:  params.CoresCount,
 		},
-		fileFinder(commCh, params.RootDit),
+		fileFinder(commCh, params.RootDir),
 	)
 
 	go func() {
@@ -129,7 +129,7 @@ func MangaPacker(params KindlePacker) error {
 		Chunks: mobi.Chunks(chapterBuffer...),
 	})
 
-	mangaDirName := path.Base(params.RootDit)
+	mangaDirName := path.Base(params.RootDir)
 	mangaTitle := params.Title
 
 	if mangaTitle == "" {
@@ -152,7 +152,7 @@ func MangaPacker(params KindlePacker) error {
 	outputFilePath := params.OutputFilePath
 
 	if outputFilePath == "" {
-		outputFilePath = path.Join(params.RootDit, "../", mangaDirName+".azw3")
+		outputFilePath = path.Join(params.RootDir, "../", mangaDirName+".azw3")
 	}
 
 	writer, err := os.Create(outputFilePath)
